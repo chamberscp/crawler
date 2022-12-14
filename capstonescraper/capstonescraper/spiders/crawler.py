@@ -8,6 +8,17 @@ class CrawlerSpider(scrapy.Spider):
     name = 'crawler'
     allowed_domains = ['www.whiskyshopusa.com']
     start_urls = ['http://www.whiskyshopusa.com/']
+    
+    # Connect to the database
+    db = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        password="Pancho12!",
+        database="whiskyshopusa"
+    )
+            
+    # Get the cursor
+    cursor = db.cursor()
 
     def parse(self, response):
     
@@ -28,6 +39,10 @@ class CrawlerSpider(scrapy.Spider):
             name = products.css('a.pname::text').get(), 
             price = products.css('em.p-price::text').get(), 
             link = products.css('a').attrib['href']
+            
+            # Insert the scraped data into the "products" table in MySQL
+            self.cursor.execute("INSERT INTO products (name, price, link) VALUES (%s, %s, %s)", (name, price, link))
+            self.db.commit()
         
         # Go to next page in this div class
         for url in response.css('div.SideCategoryListFlyout'):
@@ -35,23 +50,6 @@ class CrawlerSpider(scrapy.Spider):
                 if 'href' in links.attrib and links.attrib['href'].startswith("http"):
                     yield response.follow(links, callback = self.parse)
 
-        # Connect to the database
-        db = mysql.connector.connect(
-            host="localhost",
-            user="root",
-            password="Pancho12!",
-            database="whiskyshopusa"
-        )
-
-        # Insert the extracted data into the products table
-        for products in response.css('li.Even'):
-            cursor.execute(
-                "INSERT INTO products (name, price, link) VALUES (%s, %s, %s)",
-                (products.css('a.pname::text').get()['name'], products.css('em.p-price::text').get()['price'], products.css('a').attrib['href']['link'])
-            )
-            
-        # Get the cursor
-        cursor = db.cursor()
         
         cursor.execute("CREATE DATABASE whiskyshopusa")
         
