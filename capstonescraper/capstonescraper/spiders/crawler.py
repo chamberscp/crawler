@@ -12,11 +12,9 @@ class CrawlerSpider(scrapy.Spider):
         host="my-database.clh7uaufcnt6.us-east-1.rds.amazonaws.com",
         user="admin",
         password="team2project",
-        database="my-database"
+        database="CrawlerProject"
     )
     cursor = db.cursor()
-    
-    cursor.execute("CREATE DATABASE whiskyshopusa")
     
     cursor.execute("CREATE TABLE products (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255), price VARCHAR(255), link VARCHAR(255))")
 
@@ -50,10 +48,15 @@ class CrawlerSpider(scrapy.Spider):
             # Insert the scraped data into the "products" table in MySQL
             self.cursor.execute("INSERT INTO products (name, price, link) VALUES (%s, %s, %s)", (name, price, link))
             self.db.commit()
-            
-            # Commit the changes to the database
-            db.commit()
-            
-            # Close the cursor and database connection
-            cursor.close()
-            db.close()
+
+        for url in response.css('div.SideCategoryListFlyout'):
+            for links in url.css('a'):
+                if 'href' in links.attrib and links.attrib['href'].startswith("http"):
+                    yield response.follow(links, callback = self.parse)
+
+        # Commit the changes to the database
+        db.commit()
+        
+        # Close the cursor and database connection
+        cursor.close()
+        db.close()
