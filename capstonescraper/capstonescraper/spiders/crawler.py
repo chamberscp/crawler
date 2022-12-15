@@ -1,13 +1,17 @@
 import scrapy
 import sys
 import mysql.connector
+from scrapy.linkextractors import LinkExtractor
+from scrapy.spiders import Rule
 
 class CrawlerSpider(scrapy.Spider):
     name = 'crawler'
-    allowed_domains = ['www.whiskyshopusa.com']
+    allowed_domains = ['whiskyshopusa.com']
+    blocked_domains = open('../../blocked_domains.txt').read().splitlines()
     start_urls = ['http://www.whiskyshopusa.com/']
 
-
+    rules = [Rule(LinkExtractor(deny_domains = (blocked_domains)), callback='parse_item', nofollow=True)]
+    
     def parse(self, response):
     
         # Create a MySQL connection and cursor
