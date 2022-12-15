@@ -7,10 +7,10 @@ from scrapy.spiders import Rule
 class CrawlerSpider(scrapy.Spider):
     name = 'crawler'
     allowed_domains = ['whiskyshopusa.com']
-    blocked_domains = open('../../blocked_domains.txt').read().splitlines()
+    blocked_domains = open('../blocked_domains.txt').read().splitlines()
     start_urls = ['http://www.whiskyshopusa.com/']
 
-    rules = [Rule(LinkExtractor(deny_domains = (blocked_domains)), callback='parse_item', nofollow=True)]
+    rules = [Rule(LinkExtractor(deny_domains = (blocked_domains)), callback='parse_item', follow=False)]
     
     def parse(self, response):
     

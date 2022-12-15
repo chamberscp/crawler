@@ -62,9 +62,10 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'capstonescraper.pipelines.CapstonescraperPipeline': 300,
-#}
+ITEM_PIPELINES = {
+    #'capstonescraper.pipelines.CapstonescraperPipeline': 300,
+    'capstonescraper.pipelines.myspiderPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
