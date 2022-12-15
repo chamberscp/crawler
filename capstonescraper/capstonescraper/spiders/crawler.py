@@ -31,7 +31,7 @@ class CrawlerSpider(scrapy.Spider):
             links = products.css('a').attrib['href']
 
             # Insert the scraped data into the "products" table in MySQL
-            query = f"ALTER TABLE products (name, price, link) VALUES ('{names}', '{prices}', '{links}')"
+            query = ("INSERT INTO products(name, price, link) VALUES (%s, %s, %s)", (names, prices, links))
             cursor.execute(query)
             #cursor.commit()
 
