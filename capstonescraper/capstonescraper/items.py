@@ -9,4 +9,7 @@ import scrapy
 class CapstonescraperItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    pass
+    keyword = scrapy.Field()
+    times_mentioned = scrapy.Field()
+    url = scrapy.Field()
+    

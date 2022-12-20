@@ -7,10 +7,10 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'capstonescraper'
+#BOT_NAME = 'myspider'
 
-SPIDER_MODULES = ['capstonescraper.spiders']
-NEWSPIDER_MODULE = 'capstonescraper.spiders'
+#SPIDER_MODULES = ['myspider.spiders']
+#NEWSPIDER_MODULE = 'myspider.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -62,10 +62,10 @@ ROBOTSTXT_OBEY = True
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
+ITEM_PIPELINES = {
     #'capstonescraper.pipelines.CapstonescraperPipeline': 300,
- #   'capstonescraper.pipelines.myspiderPipeline': 300,
-#}
+    'capstonescraper.pipelines.myspiderPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
@@ -89,5 +89,5 @@ ROBOTSTXT_OBEY = True
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 # Set settings whose default value is deprecated to a future-proof value
-REQUEST_FINGERPRINTER_IMPLEMENTATION = '2.7'
-TWISTED_REACTOR = 'twisted.internet.asyncioreactor.AsyncioSelectorReactor'
+#REQUEST_FINGERPRINTER_IMPLEMENTATION = '2.7'
+#TWISTED_REACTOR = 'twisted.internet.asyncioreactor.AsyncioSelectorReactor'

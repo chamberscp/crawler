@@ -1,10 +1,10 @@
 import scrapy
 import re
 
-class WordCountSpider(scrapy.Spider):
-    name = 'WordCountSpider'
+class myspider(scrapy.Spider):
+    name = 'myspider'
     start_urls = ['https://treeremoval.com'] 
-    
+    blocked_domains = [blocked_domains.txt]
     custom_settings = {'DOWNLOAD_DELAY': 0.2}
     
     def parse(self, response):
@@ -29,6 +29,8 @@ class WordCountSpider(scrapy.Spider):
                             
             for w in sorted(allWords, key=allWords.get):
                 print(w, allWords[w])
+
+                yield {'url': response.url, 'keyword': w, 'times_mentioned': allWords[w]}
                 
             for next_page in response.css('a'):
                 if 'href' in next_page.attrib and next_page.attrib['href'].startswith("http"):
