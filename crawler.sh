@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#for Ubuntu
 pip install scrapy
 pip install mysql-connector-python
 sudo apt install mariadb-server
@@ -10,5 +11,10 @@ pip install mysql-connector-python
 
 sudo yum scrapy
 
+#for Fedora
+python -m pip install scrapy
+python -m pip install mysql.connector
+sudo dnf install community-mysql-server -y
+sudo dnf install gcc
 
 python3 /home/chambers/Git/crawler/capstonescraper/capstonescraper/spiders/crawler.py "$@"
