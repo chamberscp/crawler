@@ -4,7 +4,7 @@ import re
 class myspider(scrapy.Spider):
     name = 'myspider'
     start_urls = ['https://treeremoval.com'] 
-    blocked_domains = [blocked_domains.txt]
+    #blocked_domains = [blocked_domains.txt]
     custom_settings = {'DOWNLOAD_DELAY': 0.2}
     
     def parse(self, response):
