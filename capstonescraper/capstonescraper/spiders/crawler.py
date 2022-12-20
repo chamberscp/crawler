@@ -9,14 +9,10 @@ class CrawlerSpider(scrapy.Spider):
     
     def parse(self, response):
 
-        # Display all products in li Odd class
-        for products in response.css('div.carousel-active'):
-            for titles in products.css('h2.card-title'):
-                yield{
-                    'name': titles.css('a::text').get()
-                }   
-        for products in response.css('div.carousel-active'):
+        # Display all products in div card-body
+        for products in response.css('div.card-body.purchase-ability.ratings-on.withoutTax '):
             yield {
+                'name': products.css('a::text').get(),
                 'price': products.css('span.price.price--withoutTax::text').get(), 
                 'link': products.css('a').attrib['href']
             }
