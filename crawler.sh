@@ -9,6 +9,7 @@ sudo apt install python3-dev
 sudo apt install libmariadb3 libmariadb-dev
 
 #for Fedora
+python -m pip install scrapy
 python -m pip install mysql.connector
 sudo dnf install community-mysql-server -y
 sudo dnf install gcc
