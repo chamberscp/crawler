@@ -22,7 +22,7 @@ class myspiderPipeline:
         #Create table.  If it does not exist, prog will create it.
         self.cur.execute("""
         CREATE TABLE IF NOT EXISTS newtable (
-            id int NOT NULL auto_increment, newtable
+            id int NOT NULL auto_increment, 
             keyword VARCHAR(64),
             times_mentioned int,
             url VARCHAR(255),

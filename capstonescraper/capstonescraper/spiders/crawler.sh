@@ -17,4 +17,4 @@ python -m pip install mysql.connector
 sudo dnf install community-mysql-server -y
 sudo dnf install gcc
 
-python3 /home/chambers/Git/crawler/capstonescraper/capstonescraper/spiders/crawler.py "$@"
+scrapy runspider myspider.py
