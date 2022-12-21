@@ -19,34 +19,34 @@ class myspiderPipeline:
         # Create the cursor
         self.cur = self.conn.cursor()
         
-        #Create Chamberstestdb.  If it does not exist, prog will create it.
+        #Create table.  If it does not exist, prog will create it.
         self.cur.execute("""
-        CREATE TABLE IF NOT EXISTS chamberstestdb (
-            id int NOT NULL auto_increment,
-            keyword,
-            times mentioned,
+        CREATE TABLE IF NOT EXISTS newtable (
+            id int NOT NULL auto_increment, newtable
+            keyword VARCHAR(64),
+            times_mentioned int,
             url VARCHAR(255),
-            PRIMARY KEY (id)            
+            PRIMARY KEY (id),
+            unique (url, keyword)           
         )
         """)
     
     def process_item(self, item, spider):
         #Define the insert statement
-        self.cur.execute("""insert into chamberstestdb (keyword, times mentioned, url) values (%s,%s,%s)""", (
+        self.cur.execute("""insert ignore into newtable (keyword, times_mentioned, url) values (%s,%s,%s)""", (
             item["keyword"],
-            str(item['times mentioned']),
+            item['times_mentioned'],
             item["url"]
         ))
         
+
+
         #insert data into db
         self.conn.commit()
+        return item
         
     def close_spider(self, spider):
-        
         #close cursor and connection to the db
         self.cur.close()
         self.conn.close()    
-        
-class CapstonescraperPipeline:
-    def process_item(self, item, spider):
-        return item
+
