@@ -14,7 +14,7 @@ class myspiderPipeline:
             host="my-database.clh7uaufcnt6.us-east-1.rds.amazonaws.com",
             user="admin",
             password="team2project",
-            database="scrapeddata"
+            database="chamberstestdb"
         )
         # Create the cursor
         self.cur = self.conn.cursor()
